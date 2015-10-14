@@ -1,0 +1,126 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+/**Задание №1 для Школы Программистов HeadHunter.
+ * Класс инициализирующий основное окно для ввода координат точек и поиска минимального расстояния между данными точками.
+ * В состав класса входит класс создания GUI и класс обработчик, определяющий минимальное расстояние между точками.
+ * Поиск минимального расстояния между точками осуществляется с помощью формулы d = sqrt((x2-x1)^2+(y2-y1)^2).
+ * @author Шитов Дмитрий
+ * @version 1.0
+ */
+public class GeneralWindow extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/** Переменная координаты Y для определения положения графических элементов. */
+	private int PositionOfAxisY = 5;
+	/** Переменная, используемая двумерными массивами и счетчиками циклов (для удобства оформления и хранения компонентов JLabel и JTextField). */
+	private int N = 3;
+	/** Компонент JButton (создание 2-х кнопок,поиска и отчистки). */
+	private JButton EraseButton, FindButton;
+	/** Компонент JLabel (текстовая метка для поля результата). */
+	private JLabel LabelForResultField;
+	/** Массив для хранения текстовых меток. */
+	private JLabel LabelsArray[][] = new JLabel[StartWindow.AmountOfPoints][N]; 
+	/** Массив для хранения полей координат точек. */
+	private JTextField TextFieldArray[][] = new JTextField[StartWindow.AmountOfPoints][N-1];
+	public Handler SecondHandler = new Handler();
+	
+	public GeneralWindow(String s){
+		super(s);
+		for(int i = 0, j = 0; i < StartWindow.AmountOfPoints; i++){
+				add(LabelsArray[i][j] = new JLabel("Point " + (i+1) + " : "));
+				LabelsArray[i][j].setBounds(7 , PositionOfAxisY , 250, 20);
+				add(LabelsArray[i][j+1] = new JLabel(" , "));
+				LabelsArray[i][j+1].setBounds(90 , PositionOfAxisY , 250, 20);
+				add(LabelsArray[i][j+2] = new JLabel(" ;  - The coordinate of point  " + (i+1) + ";"));
+				LabelsArray[i][j+2].setBounds(130 , PositionOfAxisY , 250, 20);
+		PositionOfAxisY = PositionOfAxisY + 25;
+		}
+		PositionOfAxisY = 5;
+		for(int i = 0, j = 0; i < StartWindow.AmountOfPoints; i++){
+				add(TextFieldArray[i][j] = new JTextField(10));
+				TextFieldArray[i][j].setBounds(60, PositionOfAxisY, 30, 20);
+				add(TextFieldArray[i][j+1] = new JTextField(10));
+				TextFieldArray[i][j+1].setBounds(100, PositionOfAxisY, 30, 20);
+		PositionOfAxisY = PositionOfAxisY + 25;
+		}
+		this.setSize(320, PositionOfAxisY + 100);
+		add(FindButton = new JButton("Find"));
+		FindButton.setBounds(5, PositionOfAxisY + 5, 125, 30);
+		add(EraseButton = new JButton("Erase"));
+		EraseButton.setBounds(140, PositionOfAxisY + 5, 120, 30);
+		add(LabelForResultField = new JLabel(""));
+		LabelForResultField.setBounds(5, PositionOfAxisY + 40, 250, 20);
+		EraseButton.addActionListener(SecondHandler);
+		FindButton.addActionListener(SecondHandler);
+	}
+	/**
+	 * Класс - обработчик основного окна.
+	 * @author Шитов Дмитрий
+	 * 
+	 */
+	public class Handler implements ActionListener {
+		
+		/**
+		 * Метод определяет расстояние между двумя точками, используя формулу d = sqrt((x2-x1)^2+(y2-y1)^2).
+		 * @param x1 Координата Х(горизонталь) первой точки.
+		 * @param y1 Координата Y(вертикаль) первой точки.
+		 * @param x2 Координата Х(горизонталь) второй точки.
+		 * @param y2 Координата Y(вертикаль) второй точки.
+		 * @return Возращает значение расстояния между двумя точками.
+		 */
+		private double distance(int x1, int y1, int x2, int y2)
+		{
+			double res = Math.sqrt(Math.pow((x2-x1), 2) + Math.pow((y2-y1), 2));
+			return res;
+		}
+		/**
+		 * Метод ищет минимальное расстояние между всеми точками, используя метод {@link distance}.
+		 * @param ArrayOfValueInTextFields Массив полученный в результате преобразования элементов массива {@link TextFieldArray} к переменным.
+		 * @return Возвращает значение минимального расстояния между всеми точками массива {@link ArrayOfValueInTextFields}.
+		 */
+		private double minimumDistance(int ArrayOfValueInTextFields[][]){
+			double res = Double.POSITIVE_INFINITY;
+			for(int i = 0, j = 0; i < (StartWindow.AmountOfPoints); i++){
+				for(int k = i + 1, l = 0; k < (StartWindow.AmountOfPoints); k++){
+					int x1 = ArrayOfValueInTextFields[i][j];
+					int x2 = ArrayOfValueInTextFields[k][l];
+					int y1 = ArrayOfValueInTextFields[i][j+1];
+					int y2 = ArrayOfValueInTextFields[k][l+1];
+					if(distance(x1, y1, x2, y2) < res){
+						res = distance(x1, y1, x2, y2);	
+					}
+				}	
+			}
+			return res;
+		}
+
+		public void actionPerformed(ActionEvent e){
+			try{
+				
+				if(e.getSource() == FindButton){
+					int ArrayOfValueInTextFields[][] = new int[StartWindow.AmountOfPoints][N-1];
+					for(int i = 0, j = 0; i < StartWindow.AmountOfPoints; i++){
+							ArrayOfValueInTextFields[i][j] = Integer.parseInt(TextFieldArray[i][j].getText());
+							ArrayOfValueInTextFields[i][j+1] = Integer.parseInt(TextFieldArray[i][j+1].getText());
+					}
+					
+					LabelForResultField.setText("Result: " + minimumDistance(ArrayOfValueInTextFields));
+				}	
+				if(e.getSource() == EraseButton){
+					for(int i = 0; i < StartWindow.AmountOfPoints; i++){
+						for(int j = 0; j < N-1; j++){
+							TextFieldArray[i][j].setText("");
+						}
+					}
+				} 
+			}
+			catch(Exception Warning){
+				JOptionPane.showMessageDialog(null, "Please enter all fields only whole numbers!");
+			}
+	
+		}
+	}
+}

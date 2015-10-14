@@ -1,0 +1,28 @@
+import javax.swing.JFrame;
+/**Задание №1 для Школы Программистов HeadHunter.
+ * Основной класс метода main.
+ * @author Шитов Дмитрий
+ * @version 1.0
+ */
+public class MainClass {
+	public static void main(String args[]) throws InterruptedException{
+		StartWindow f = new StartWindow("Enter the amount");
+		f.setLayout(null);
+		f.setVisible(true);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setResizable(false);
+		f.setLocationRelativeTo(null);
+		f.setSize(280, 100);
+		while(StartWindow.AmountOfPoints == 0){
+			Thread.sleep(50);
+		}
+		f.dispose();
+		GeneralWindow r = new GeneralWindow("Distance Calc");
+		r.setLayout(null);
+		r.setVisible(true);
+		r.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		r.setResizable(true);
+		r.setLocationRelativeTo(null);
+	}
+	
+}

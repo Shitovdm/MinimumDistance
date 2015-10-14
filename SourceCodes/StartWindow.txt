@@ -1,0 +1,60 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+/**Задание №1 для Школы Программистов HeadHunter.
+ * Класс инициализирующий стартовое окно для определения набора точек N на плоскости.
+ * В состав класса входит класс создания GUI и класс обработчик, задающий количество точек N на плоскости.
+ * @author Шитов Дмитрий
+ * @version 1.0
+ */
+public class StartWindow extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/** Компонент JTextField (поле для ввода значения количества точек N). */
+	private static JTextField TextFieldForEntryField;
+	/** Компонент класса JLabel (метка для поля ввода количества точек). */
+	private JLabel LabelForEntryField; 
+	/** Компонент JButton (элемент, кнопка для принятия введенного количества N точек). */
+	private JButton EntryButton;
+	/** Статическая переменная, для хранения количества точек N на плоскости. */
+	public static int AmountOfPoints;
+	public HandlerForStartWin handler = new HandlerForStartWin();
+	/**
+	 * 
+	 * @param s Title для стартового окна.
+	 */
+	StartWindow(String s){
+		super(s);
+		add(LabelForEntryField = new JLabel("Please enter the number of points: " ));
+		LabelForEntryField.setBounds(5 , 5 , 250, 20);
+		add(TextFieldForEntryField = new JTextField(10));
+		TextFieldForEntryField.setBounds(210, 5, 30, 20);
+		add(EntryButton = new JButton("Enter"));
+		EntryButton.setBounds(80, 30, 120, 30);
+		EntryButton.addActionListener(handler);
+	}
+	
+	/**
+	 * Класс - обработчик стартового окна.
+	 * @author Шитов Дмитрий
+	 * 
+	 */
+	public class HandlerForStartWin implements ActionListener {
+		public void actionPerformed(ActionEvent e){
+			try{
+				if(e.getSource()== EntryButton){
+					AmountOfPoints = Integer.parseInt(TextFieldForEntryField.getText());
+				}
+			}catch(Exception eFirstWindow){
+				JOptionPane.showMessageDialog(null, "Please enter only whole numbers!");
+			}
+			
+		}
+	
+	}
+	
+
+}
+
