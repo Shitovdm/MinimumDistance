@@ -1,10 +1,10 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-/**Çàäàíèå ¹1 äëÿ Øêîëû Ïðîãðàììèñòîâ HeadHunter.
- * Êëàññ èíèöèàëèçèðóþùèé ñòàðòîâîå îêíî äëÿ îïðåäåëåíèÿ íàáîðà òî÷åê N íà ïëîñêîñòè.
- * Â ñîñòàâ êëàññà âõîäèò êëàññ ñîçäàíèÿ GUI è êëàññ îáðàáîò÷èê, çàäàþùèé êîëè÷åñòâî òî÷åê N íà ïëîñêîñòè.
- * @author Øèòîâ Äìèòðèé
+/**Задание №1 для Школы Программистов HeadHunter.
+ * Класс инициализирующий стартовое окно для определения набора точек N на плоскости.
+ * В состав класса входит класс создания GUI и класс обработчик, задающий количество точек N на плоскости.
+ * @author Шитов Дмитрий
  * @version 1.0
  */
 public class StartWindow extends JFrame {
@@ -12,18 +12,18 @@ public class StartWindow extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	/** Êîìïîíåíò JTextField (ïîëå äëÿ ââîäà çíà÷åíèÿ êîëè÷åñòâà òî÷åê N). */
+	/** Компонент JTextField (поле для ввода значения количества точек N). */
 	private static JTextField TextFieldForEntryField;
-	/** Êîìïîíåíò êëàññà JLabel (ìåòêà äëÿ ïîëÿ ââîäà êîëè÷åñòâà òî÷åê). */
+	/** Компонент класса JLabel (метка для поля ввода количества точек). */
 	private JLabel LabelForEntryField; 
-	/** Êîìïîíåíò JButton (ýëåìåíò, êíîïêà äëÿ ïðèíÿòèÿ ââåäåííîãî êîëè÷åñòâà N òî÷åê). */
+	/** Компонент JButton (элемент, кнопка для принятия введенного количества N точек). */
 	private JButton EntryButton;
-	/** Ñòàòè÷åñêàÿ ïåðåìåííàÿ, äëÿ õðàíåíèÿ êîëè÷åñòâà òî÷åê N íà ïëîñêîñòè. */
+	/** Статическая переменная, для хранения количества точек N на плоскости. */
 	public static int AmountOfPoints;
 	public HandlerForStartWin handler = new HandlerForStartWin();
 	/**
 	 * 
-	 * @param s Title äëÿ ñòàðòîâîãî îêíà.
+	 * @param s Title для стартового окна.
 	 */
 	StartWindow(String s){
 		super(s);
@@ -37,8 +37,8 @@ public class StartWindow extends JFrame {
 	}
 	
 	/**
-	 * Êëàññ - îáðàáîò÷èê ñòàðòîâîãî îêíà.
-	 * @author Øèòîâ Äìèòðèé
+	 * Класс - обработчик стартового окна.
+	 * @author Шитов Дмитрий
 	 * 
 	 */
 	public class HandlerForStartWin implements ActionListener {
@@ -57,4 +57,3 @@ public class StartWindow extends JFrame {
 	
 
 }
-
